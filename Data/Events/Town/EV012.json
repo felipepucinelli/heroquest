@@ -1,0 +1,27 @@
+[
+    {
+      "x": 18,
+      "y": 14,
+      "id": "12",
+      "name": "EV012"
+    },
+    [
+        {
+            
+            "character_hue": "186-Bulletin-store.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "right",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": true,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%STORE%'}"
+            ]
+        }
+    ]
+]

@@ -1,0 +1,28 @@
+[
+    {
+      "x": 31,
+      "y": 13,
+      "id": "5",
+      "name": "EV005"
+    },
+    [
+        {
+            
+            "character_hue": "006-Fighter06.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "random",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 3,
+            "commands": [
+              "SHOW_TEXT: {'text': '%WARRIOR%'}",
+			  ""
+            ]
+        }
+    ]
+]

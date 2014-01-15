@@ -1,0 +1,17 @@
+[
+    {
+      "x": 34,
+      "y": 19,
+      "id": "15",
+      "name": "EV015"
+    },
+    [
+        {
+            
+            "character_hue": "186-Bulletin-store.png","pattern": 4,
+            "direction": "right",
+            "alwaysOnTop": false,
+            "frequence": 30
+        }
+    ]
+]

@@ -1,0 +1,47 @@
+[
+    {
+      "x": 26,
+      "y": 22,
+      "id": "2",
+      "name": "EV002"
+    },
+    [
+        {
+            
+            "character_hue": "032-Cleric08.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "left",
+            "frequence": 16,
+            "type": "random",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%COURAGE%'}",
+			  "CHANGE_GOLD: 5",
+			  "SHOW_TEXT: {'text': '%GET_GOLD_3%'}",
+			  "SELF_SWITCH_ON: 'A'"
+            ]
+        },
+        {
+            "conditions": {"self_switch": "A"},
+            "character_hue": "032-Cleric08.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "left",
+            "frequence": 16,
+            "type": "random",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%MONEY%'}"
+            ]
+        }
+    ]
+]

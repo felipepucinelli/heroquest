@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hero Quest - Alfa</title>
+    <link rel="icon" type="image/png" href="images/favicon.ico" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Um RPG em HTML5 e Javascript." />
+    <meta name="keywords" content="canvas, html5, javascript">
+	<meta name="author" content="Felipe Pucinelli" />
+	<meta property="og:site_name" content="HeroQuest"/>
+	<meta property="og:url" content="http://heroquest.com.br/"/>
+	<meta property="og:image" content="http://heroquest.com.br/images/main-title.jpg"/>
+	<meta property="og:title" content=".:: HeroQuest ::."/>
+	<meta property="og:description" content="Um RPG feito em HTML5 e Javascript."/>
+	<meta name="language" content="pt-br" />
+
+	<script src="jquery-1.6.2.min.js"></script>
+	<script src="rpg-beta-2.js"></script>
+	
+	<script src="Database/Animation.js"></script>
+	<script src="Database/Arpg.js"></script>
+	<link rel="stylesheet" href="style.css" type="text/css">
+
+	<script>
+		var heroQuest = {};
+		var rpg;
+
+		RPGJS.load({
+			plugins: ["arpg", "gold"]
+		}, function() {
+			
+			rpg = new Rpg("canvas_rpg");
+			rpg.setLang("pt");
+			rpg.setVolumeAudio(0);
+			
+			var cookie = getCookie();
+			if (cookie['rpg-volume'] == 0) {
+				$('#sound').trigger("click");
+			}
+			
+			rpg.setGraphicAnimation(192, 192);
+			rpg.addAnimation({
+				name: 'coin',
+				graphic: 'Heal5.png',
+				framesDefault: {y: 40, x: 40},
+				frames: [
+					[{pattern: 13, zoom: 50}],
+					[{pattern: 13, zoom: 80}, {pattern: 1, zoom: 20}],
+					[{pattern: 13, zoom: 100}, {pattern: 2, zoom: 120}],
+					[{pattern: 13, zoom: 120, opacity: 200}, {pattern: 3, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 4, zoom: 120}],
+					[{pattern: 13, zoom: 130, opacity: 150}, {pattern: 5, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 6, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 200}, {pattern: 7, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 200}, {pattern: 7, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 8, zoom: 120}],
+					[{pattern: 13, zoom: 130, opacity: 150}, {pattern: 9, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 10, zoom: 120}],
+					[{pattern: 13, zoom: 110, opacity: 200}, {pattern: 11, zoom: 120}],
+					[{pattern: 13, zoom: 80, opacity: 180}, {pattern: 12, zoom: 120}],
+					[{pattern: 13, zoom: 60, opacity: 180}],
+					[{pattern: 13, zoom: 50, opacity: 150}],
+					[{pattern: 13, zoom: 50, opacity: 100}],
+					[{pattern: 13, zoom: 50, opacity: 50}]
+				]
+			});
+			
+			rpg.addAnimation(Database.animation['EM Exclamation']);
+			rpg.addAnimation(Database.animation['Darkness 1']);
+			rpg.addAnimation(Database.animation['Fang']);
+			rpg.addAnimation(Database.animation['SP Recovery 2']);
+	
+			rpg.addAction('attack_ennemy', {
+				action: 'attack',
+				suffix_motion: [''],
+				duration_motion: 1,
+				block_movement: true,
+				wait_finish: 1
+			});
+			
+			rpg.prepareEventAjax("monster1");
+			rpg.prepareEventAjax("monster2");
+			rpg.prepareEventAjax("monster3");
+		
+			
+			rpg.addAction('myattack', {
+				action: 'attack', 
+				suffix_motion: ['_SWD_1'], 
+				duration_motion: 1,
+				block_movement: true,
+				wait_finish: 5, 
+				speed: 25,
+				keypress: [Input.A],
+				condition: function() {
+					return rpg.switchesIsOn(2);
+				}
+			});
+			
+			rpg.prepareMap('Grotte1', {
+				tileset: 'Grotte 3.png',
+				autotiles: ['sol22.png', 'sol22.png', 'sol22.png', 'sol221.png', 'sol222.png', 'sol22.png', 'sol22.png'],
+				bgm: {mp3: 'Cave', ogg: 'Cave'},
+				events:  ['EV001', 'EV002', 'EV003', 'EV005', 'EV006', 'EV007', 'EV009','EV010'],
+				transfert: [
+					{x: 3, y: 39, map: 'Town', x_final: 46, y_final: 9, direction: 'bottom'}
+				],
+			}, mapLoadCave);
+			
+			/**
+				Map Town
+			*/
+			rpg.loadMap('Town', {
+				tileset: 'village0.png',
+				autotiles: ['sol11.png'],
+				bgm:  {mp3: 'Town', ogg: 'Town'},
+				transfert: [
+					{x: 19, y: 45, map: 'Bedroom', x_final: 10, y_final: 14, direction: 'up'},
+					{x: 18, y: 18, map: 'Store', x_final: 10, y_final: 14, direction: 'up'},
+					{x: 34, y: 21, map: 'Inn', x_final: 10, y_final: 14, direction: 'up'},
+					{x: 46, y: 8, map: 'Grotte1', x_final: 3, y_final: 39},
+					{x: 49, y: 34, map: 'Forest1', x_final: 0, y_final: 5, dy: 4, parallele: true, direction: 'right',
+					callback: function() {
+						if (rpg.player.inTransfert) return false;
+						rpg.player.inTransfert = true;
+						if (rpg.switchesIsOn(2)) {
+							return true;
+						}
+						else {
+							var event = rpg.getEventByName('EV001');
+							event.turnTowardPlayer();
+							rpg.callCommandsEvent(event, function() {
+								event.setStopDirection('left');
+								rpg.player.move(['left'], function() {
+									rpg.player.animation('stop');
+								});
+								rpg.player.inTransfert = false;
+							}, true);
+							return false;
+						}
+					}
+				}
+				],
+				events:  ['EV001', 'EV002', 'EV003', 'EV004', 'EV005', 'EV006', 'EV007', 'EV008', 'EV009', 'EV010', 'EV012', 'EV013', 'EV014', 'EV015'],
+				
+				/* Iniciando o jogador */
+				player:  {
+					x: 19, 
+					y: 47, 
+					direction: 'bottom',
+					filename: 'Hero.png', 
+					regX: 35, 
+					regY: 68, 
+					actionBattle: {
+						hp_max: 200,
+						actions: ['myattack']
+					},
+					actions: ['myattack']
+				}
+				
+			}, init);
+			
+			rpg.prepareMap('Bedroom', {
+				tileset: 'bedroom.png',
+				autotiles: ['Rue4.png', 'carpet.png'],
+				transfert: [
+					{x: 10, y: 14, map: 'Town', x_final: 19, y_final: 45, dx: 3, parallele: true, direction: 'bottom'}
+				]
+				
+			}, function() {
+				mapLoad();
+			});
+
+			rpg.prepareMap('Store', {
+				tileset: 'store.png',
+				autotiles: ['store.png', 'store.png'],
+				events:  ['EV001'],
+				transfert: [
+					{x: 10, y: 14, map: 'Town', x_final: 18, y_final: 18, dx: 3, parallele: true, direction: 'bottom'}
+				]
+				
+			}, function() {
+				mapLoad();
+			});
+
+			rpg.prepareMap('Inn', {
+				tileset: 'inn.png',
+				autotiles: ['store.png', 'carpet.png'],
+				events:  ['EV001'],
+				transfert: [
+					{x: 10, y: 14, map: 'Town', x_final: 34, y_final: 21, dx: 3, parallele: true, direction: 'bottom'}
+				]
+				
+			}, function() {
+				mapInn();
+				night();
+				mapLoad();
+			});
+
+			rpg.prepareMap('Forest1', {
+				tileset: 'Forest1.png',
+				autotiles: ['sol11.png'],
+				bgm: {mp3: 'Forest', ogg: 'Forest'},
+				transfert: [
+					{x: 24, y: 29, map: 'Forest2', x_final: 4, y_final: 0, dx: 3, parallele: true, direction: 'bottom'},
+					{x: 0, y: 5, map: 'Town', x_final: 49, y_final: 34, dy: 4, parallele: true, direction: 'left'} 
+				],
+				events: ['EV001']
+				
+			}, function() {
+				createMonster('monster1', 8, 13);
+				createMonster('monster1', 23, 21);
+				createMonster('monster1', 19, 10);
+				createMonster('monster2', 25, 12);
+				mapLoad();
+			});
+			
+			
+			rpg.prepareMap('Forest2', {
+				tileset: 'Forest1.png',
+				bgm: {mp3: 'Forest', ogg: 'Forest'},
+				transfert: [
+					{x: 4, y: 0, map: 'Forest1', x_final: 24, y_final: 29, dx: 3, parallele: true, direction: 'up'},
+					{x: 4, y: 18, map: 'Temple1', x_final: 10, y_final: 11, direction: 'up'}
+				],
+				events: ['EV001'],
+				autotiles: ['sol11.png']
+			}, function() {
+				createMonster('monster1', 16, 21);
+				createMonster('monster1', 18, 15);
+				createMonster('monster2', 9, 10);
+				mapForest2();
+				mapLoad();
+			});
+			
+			
+			rpg.prepareMap('Temple1', {
+				tileset: 'Grotte 2.png',
+				bgm: {mp3: 'Temple', ogg: 'Temple'},
+				transfert: [
+					{x: 10, y: 11, map: 'Forest2', x_final: 4, y_final: 19, direction: 'bottom'},
+					{x: 4, y: 9, map: 'Temple', x_final: 17, y_final: 2, direction: 'bottom'}
+				]
+			}, mapLoad);
+			
+			rpg.prepareMap('Temple', {
+				tileset: 'Grotte 2.png',
+				bgm: {mp3: 'Temple', ogg: 'Temple'},
+				transfert: [
+					{x: 17, y: 2, map: 'Temple1', x_final: 4, y_final: 8, direction: 'up'},
+					{x: 7, y: 3, map: 'Temple2', x_final: 9, y_final: 28, direction: 'up'}
+				],
+				events:  ['EV001', 'EV002', 'EV003', 'EV004', 'EV005']
+			},  function() { 
+				mapLoadTemple();
+				mapLoad();
+			});
+			
+			
+			rpg.prepareMap('Temple2', {
+				tileset: 'Grotte 2.png',
+				bgm: {mp3: 'Temple', ogg: 'Temple'},
+				transfert: [
+					{x: 31, y: 4, map: 'Temple3', x_final: 7, y_final: 10, direction: 'up'},
+					{x: 9, y: 28, map: 'Temple', x_final: 7, y_final: 4, direction: 'bottom'}
+				],
+				events:  ['EV001', 'EV002', 'EV003'],
+			}, function() {
+				createMonster('monster3', 12, 23);
+				createMonster('monster3', 20, 15);
+				createMonster('monster1', 11, 11);
+				createMonster('monster1', 22, 09);
+				createMonster('monster3', 32, 12);
+				mapLoad();
+			});
+			
+			
+			rpg.prepareMap('Temple3', {
+				tileset: 'Grotte 2.png',
+				bgm: {mp3: 'Temple', ogg: 'Temple'},
+				transfert: [
+					{x: 7, y: 10, map: 'Temple2', x_final: 31, y_final: 5, direction: 'bottom'}
+				],
+				events:  ['EV001'],
+			}, end());
+
+			function mapLoadTemple() {
+				var order = 0;
+				var order_correct = true;
+				
+				rpg.onEventCall('Switch01', function() {
+					order_valid(1, this);
+				});
+				rpg.onEventCall('Switch02', function() {
+					order_valid(2, this);
+				});
+				rpg.onEventCall('Switch03', function() {
+					order_valid(3, this);
+				});
+				rpg.onEventCall('Switch04', function() {
+					order_valid(4, this);
+				});
+				
+				function order_valid(value, event) {
+					order++;
+					if (order != value) {
+						order_correct = false;
+					}
+					if (order == 4) {
+						if (order_correct) {
+							rpg.setSwitches(8, true);
+						}
+						else {
+							rpg.playSE('057-Wrong01.ogg');
+							event.commandsExit();
+							rpg.setSwitches([4, 5, 6, 7], false);
+							order = 0;
+							order_correct = true;
+						}
+					}
+				}
+			
+			createMonster('monster3', 9, 9);
+		}
+		
+			function mapInn() {
+				rpg.onUpdate(function() {
+					if (this.gold >= 10 && !this.switchesIsOn(20)) {
+						this.setSwitches(20, true);
+					}
+				});
+			}
+
+			function mapForest2() {
+				rpg.onUpdate(function() {
+					if (this.gold >= 15 && !this.switchesIsOn(10)) {
+						this.setSwitches(10, true);
+					}
+				});
+			}
+			
+			function mapLoadCave() {
+				var stone1 = rpg.getEventByName('EV006');
+				var stone2 = rpg.getEventByName('EV010');
+				var stone3 = rpg.getEventByName('EV001');
+				
+				rpg.onUpdate(function() {
+					if ((stone1.x == 16 && stone1.y == 27 ||
+						stone2.x == 16 && stone2.y == 27 ||
+						stone3.x == 16 && stone3.y == 27)
+						&& !this.switchesIsOn(3)) {
+						this.setSwitches([1, 3], true);
+					}
+				});
+
+			}
+		
+			function init() {
+				rpg.player.useMouse(true);
+				rpg.player.setTypeMove("tile");
+				rpg.setScreenIn("Player");
+				
+				rpg.bindMouseEvent('over', function(obj) {
+					var tooltip = obj.event.getElementById('tooltip');
+					$(tooltip).fadeIn(); 
+				}, rpg.player);
+ 
+				rpg.bindMouseEvent('out', function(obj) {
+					var tooltip = obj.event.getElementById('tooltip');
+					$(tooltip).fadeOut();
+				}, rpg.player);
+			}
+			
+			function createMonster(name, x, y) {
+				rpg.setEventPrepared(name, {x: x, y: y});
+				rpg.addEventPrepared(name);
+			}
+			
+			function end() {
+				rpg.onEventCall('end', function() {
+					alert('FIM. Obrigado por jogar!');
+					window.location.reload(true);
+				});
+			}
+
+			function night() {
+				rpg.onEventCall('night', function() {
+					rpg.changeScreenColorTone('000000', 10, 1, 1);
+
+					rpg.player.actionBattle.hp = rpg.player.actionBattle.hp_max
+					$('#hp').animate({'width': (rpg.player.actionBattle.hp_max) + 'px'});
+
+					setTimeout(function() {
+						rooster.play();
+						rpg.changeScreenColorTone('reset');
+					}, 2000);
+				});
+			}
+			
+			Input.lock(rpg.canvas, true);
+			
+		});
+			
+			
+		function mapLoad() {	
+		
+		}
+	</script>
+	
+
+ </head>
+  <body>
+		<div id="canvas_rpg-parent">
+			<canvas id="canvas_rpg" width="640px" height="480px"></canvas> 
+			<div id="bar_hp">
+				<div id="hp"></div>
+			</div>
+			<div id="main-title">
+				<span class="validate"></span>
+				<input class="player-name" placeholder="Digite seu nome para começar..." type="text">
+				<div class="start-game">
+					<div class="start-game-link"><span class="start-icon"></span><span>Começar o jogo</span></div>
+				</div>
+			</div>
+			<div id="header">
+				<div id="sound" class="sound-play"></div>
+				<div id="gold"> : <span>0</span></div>
+				<div id="option"></div>
+			</div>
+			<div id="options" class="window">
+				<h1>Comandos</h1>
+				<ul>
+					<li>Enter ou Espaço : Falar, Ação</li>
+					<li>Setas : Move</li>
+					<li>A : Ataque (se uma espada estiver equipada)</li>
+				</ul>
+			</div>
+		</div>
+		<audio id="title-music" src="Audio/BGM/Title.ogg"autoplay loop>
+		<audio id="sword-sound" src="Audio/SE/sword.ogg" preload="auto">
+		<audio id="rooster" src="Audio/SE/rooster.wav" preload="auto">
+  </body>
+  
+  <script>
+	$(function() {
+		var titleMusic = document.getElementById('title-music'),
+			swordSound = document.getElementById('sword-sound');
+			rooster = document.getElementById('rooster');
+
+		$('.start-game-link').hover(function() {
+			swordSound.play();		
+		});	
+
+		$('.start-game-link').click(function() {
+
+			var playerNameValue = $('.player-name').val(),
+				playerName = $('.player-name'),
+				validateName = $('.validate');
+			
+			if (playerNameValue.length == 0 || playerNameValue.length > 10) {
+				validateName.html("Campo vazio ou limite máximo de 10 caracteres atingido.");
+				validateName.addClass('error');
+				playerName.addClass('error');
+
+			} else {
+				validateName.removeClass('error');
+				validateName.addClass('success');
+				playerName.removeClass('error');
+				playerName.addClass('success');
+				titleMusic.pause();
+				titleMusic.src='';
+				$('#main-title').fadeOut('slow');
+				$('#canvas_rpg-dom').focus();
+
+				var langScript = document.createElement("script");	
+					langScript.setAttribute("type", "text/javascript");
+					langScript.setAttribute("language", "JavaScript");
+					langScript.setAttribute("src", "Database/Lang.js");
+					document.getElementsByTagName("head")[0].appendChild(langScript);
+
+				heroQuest.player = {name: playerNameValue}
+	   			rpg.addHtmlElement('<div id="tooltip" class="tooltip">' + playerNameValue + '</div>', 15, 30, rpg.player);
+
+	   			setTimeout(function() {
+						rpg.setVolumeAudio(1);
+				}, 1000);	
+			}
+		});
+
+		$(document).keypress(function(e) {
+    		if(e.which == 13) {
+        		$('.start-game-link').click();
+        		swordSound.play();	
+    		}
+		});
+
+		$('#sound').click(function() {
+			var val;
+			if ($(this).hasClass("sound-play")) {
+				$(this).removeClass('sound-play');
+				$(this).addClass('sound-mute');
+				val = 0;
+			}
+			else {
+				$(this).removeClass('sound-mute');
+				$(this).addClass('sound-play');
+				val = 1;
+			}
+			rpg.setVolumeAudio(val);
+			setCookie("rpg-volume", val);
+		});
+		
+		
+		$('#option').toggle(function() {
+				scene = new Scene(rpg);
+				scene.setFreeze("all");
+				$('#options').fadeIn("fast");
+			}, function() {
+				scene.exit();
+				$('#options').fadeOut("fast");
+				$('#canvas_rpg-dom').focus();
+			});
+		
+		$('input[name="lang"]').click(function() {
+			rpg.setLang($(this).val());
+		});
+			
+		
+	});
+	
+	function setCookie (name, value) {
+		var expire = new Date() ;
+		expire.setTime(new Date().getTime() + 60*60*24*14);
+		document.cookie = name + "=" + value + ";expires=" + expire.toGMTString();
+	}
+	
+	function getCookie() {
+		var value = "", name = "";
+		var separator = document.cookie.indexOf( "=" );
+		var ret = {};
+		name = document.cookie.substring(0, separator);
+		value = document.cookie.substring(separator + 1, separator + 2);
+		ret[name] = value;
+		return ret;
+	}  
+  </script>
+</html>

@@ -1,0 +1,41 @@
+[
+    {
+      "x": 23,
+      "y": 10,
+      "id": "5",
+      "name": "EV005"
+    },
+    [
+        {
+            
+            "character_hue": "175-Chest02.png","pattern": 1,
+            "trigger": "action_button",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%SWORD%'}",
+			  "SWITCHES_ON: [2]"
+            ]
+        },
+        {
+            "conditions": {"switches": [2]},
+            "character_hue": "175-Chest02.png","pattern": 1,
+            "trigger": "action_button",            "direction": "up",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]

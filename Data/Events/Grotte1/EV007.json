@@ -1,0 +1,40 @@
+[
+    {
+      "x": 11,
+      "y": 24,
+      "id": "7",
+      "name": "EV007"
+    },
+    [
+        {
+            
+            "character_hue": "180-Switch03.png","pattern": 2,
+            "trigger": "action_button",            "direction": "up",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        },
+        {
+            "conditions": {"switches": [1]},
+            "character_hue": "180-Switch03.png","pattern": 2,
+            "trigger": "action_button",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": true,
+            "stop_animation": false,
+            "no_animation": true,
+            "direction_fix": false,
+            "alwaysOnBottom": true,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]

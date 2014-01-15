@@ -1,0 +1,45 @@
+[
+    {
+      "x": 28,
+      "y": 20,
+      "id": "6",
+      "name": "EV006"
+    },
+    [
+		{
+            
+            "character_hue": "042-King01.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%HELP_US%'}",
+			  "SELF_SWITCH_ON: 'A'"
+            ]
+        },
+        {
+            "conditions": {"self_switch": "A"},
+            "character_hue": "042-King01.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%HELP_US%'}"
+            ]
+        }
+    ]
+]

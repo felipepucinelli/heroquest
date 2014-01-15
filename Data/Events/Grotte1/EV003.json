@@ -1,0 +1,40 @@
+[
+    {
+      "x": 16,
+      "y": 27,
+      "id": "3",
+      "name": "EV003"
+    },
+    [
+        {
+            
+            "character_hue": "178-Switch01.png","pattern": 3,
+            "trigger": "contact",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": true,
+            "stop_animation": false,
+            "no_animation": true,
+            "direction_fix": false,
+            "alwaysOnBottom": true,
+            "speed": 4,
+            "commands": [
+              "SWITCHES_ON: [1]"
+            ]
+        },
+        {
+            "conditions": {"switches": [1]},
+            "character_hue": "178-Switch01.png","pattern": 3,
+            "trigger": "action_button",            "direction": "up",            "frequence": 16,
+            "type": "fixed",
+            "through": true,
+            "stop_animation": false,
+            "no_animation": true,
+            "direction_fix": false,
+            "alwaysOnBottom": true,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]

@@ -1,0 +1,27 @@
+[
+    {
+      "x": 45,
+      "y": 9,
+      "id": "9",
+      "name": "EV009"
+    },
+    [
+        {
+            
+            "character_hue": "186-Bulletin01.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "right",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": true,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%PROHIBITED%'}"
+            ]
+        }
+    ]
+]
