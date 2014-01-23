@@ -1,0 +1,65 @@
+[
+    {
+      "x": 4,
+      "y": 20,
+      "id": "1",
+      "name": "EV001"
+    },
+    [
+        {
+            
+            "character_hue": "041-Mage09.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%PASS%'}"
+            ]
+        },
+        {
+            "conditions": {"switches": [10]},
+            "character_hue": "041-Mage09.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%GIVE_ME%'}",
+			  "CHANGE_GOLD: -15",
+			  "SHOW_TEXT: {'text': '%YOU_LOSE%'}",
+			  "SHOW_ANIMATION: {'name': 'SP Recovery 2'}",
+			  "SELF_SWITCH_ON: 'A'"
+            ]
+        },
+        {
+            "conditions": {"self_switch": "A"},
+            
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]

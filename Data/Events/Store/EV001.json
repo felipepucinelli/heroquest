@@ -1,0 +1,27 @@
+[
+    {
+      "x": 9,
+      "y": 6,
+      "id": "1",
+      "name": "EV001"
+    },
+    [
+        {
+            
+            "character_hue": "005-Fighter05.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 4,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 5,
+            "commands": [
+              "SHOW_TEXT: {'text': '%BUY%'}"
+            ]
+        }
+    ]
+]

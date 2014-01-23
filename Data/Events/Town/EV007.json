@@ -1,0 +1,25 @@
+[
+    {
+      "x": 12,
+      "y": 15,
+      "id": "7",
+      "name": "EV007"
+    },
+    [
+        {
+            
+            "character_hue": "109-Civilian09.png","pattern": 0,
+            "trigger": "action_button",            "direction": "up",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%SPEND%'}"
+            ]
+        }
+    ]
+]

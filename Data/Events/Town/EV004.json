@@ -1,0 +1,27 @@
+[
+    {
+      "x": 20,
+      "y": 19,
+      "id": "4",
+      "name": "EV004"
+    },
+    [
+        {
+            
+            "character_hue": "049-Soldier01.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "right",
+            "frequence": 4,
+            "type": "random",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 5,
+            "commands": [
+              "SHOW_TEXT: {'text': '%LEAVE%'}"
+            ]
+        }
+    ]
+]

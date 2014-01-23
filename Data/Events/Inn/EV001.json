@@ -1,0 +1,49 @@
+[
+    {
+      "x": 10,
+      "y": 8,
+      "id": "1",
+      "name": "EV001"
+    },
+    [
+        {
+            
+            "character_hue": "119-Civilian19.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%HOST%'}"
+            ]
+        },
+        {
+            "conditions": {"switches": [20]},
+            "character_hue": "119-Civilian19.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%HOST%'}",
+              "CALL: 'night'",
+              "CHANGE_GOLD: -10",
+              "SHOW_TEXT: {'text': '%YOU_LOSE_10%'}",
+              "SELF_SWITCH_ON: 'A'"
+            ]
+        }
+
+    ]
+]

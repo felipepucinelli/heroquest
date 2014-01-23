@@ -1,0 +1,27 @@
+[
+    {
+      "x": 30,
+      "y": 22,
+      "id": "8",
+      "name": "EV008"
+    },
+    [
+        {
+            
+            "character_hue": "115-Civilian15.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 4,
+            "type": "random",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 3,
+            "commands": [
+              "SHOW_TEXT: {'text': '%YEAHHHH%'}"
+            ]
+        }
+    ]
+]

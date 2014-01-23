@@ -1,0 +1,46 @@
+[
+    {
+      "x": 18,
+      "y": 5,
+      "id": "1",
+      "name": "EV001"
+    },
+    [
+        {
+            
+            "character_hue": "174-Chest01.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "bottom",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%GET_GOLD_3%'}",
+              "CHANGE_GOLD: 5",
+              "SELF_SWITCH_ON: 'A'"
+            ]
+        },
+        {
+            "conditions": {"self_switch": "A"},
+            "character_hue": "174-Chest01.png","pattern": 0,
+            "trigger": "action_button",
+            "direction": "up",
+            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]

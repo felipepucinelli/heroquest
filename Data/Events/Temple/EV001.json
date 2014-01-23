@@ -1,0 +1,41 @@
+[
+    {
+      "x": 7,
+      "y": 3,
+      "id": "1",
+      "name": "EV001",
+	  "regX": 30
+    },
+    [
+        {
+            
+            "character_hue": "173-Door04.png","pattern": 0,
+            "trigger": "action_button",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        },
+        {
+            "conditions": {"switches": [8]},
+            "character_hue": "173-Door04.png","pattern": 0,
+            "trigger": "action_button",            "direction": "up",            "frequence": 16,
+            "type": "fixed",
+            "through": true,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]

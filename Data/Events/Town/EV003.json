@@ -1,0 +1,41 @@
+[
+    {
+      "x": 26,
+      "y": 33,
+      "id": "3",
+      "name": "EV003"
+    },
+    [
+        {
+            
+            "character_hue": "049-Soldier01.png","pattern": 0,
+            "trigger": "action_button",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%CALM%'}",
+			  "SELF_SWITCH_ON: 'A'"
+            ]
+        },
+        {
+            "conditions": {"self_switch": "A"},
+            "character_hue": "049-Soldier01.png","pattern": 0,
+            "trigger": "action_button",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": false,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "SHOW_TEXT: {'text': '%BORED%'}"
+            ]
+        }
+    ]
+]

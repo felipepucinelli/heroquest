@@ -1,0 +1,42 @@
+[
+    {
+      "x": 12,
+      "y": 12,
+      "id": "4",
+      "name": "EV004"
+    },
+    [
+        {
+            
+            "character_hue": "179-Switch02.png","pattern": 2,
+            "trigger": "action_button",            "direction": "bottom",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": true,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              "PLAY_SE: {'filename': '035-Switch04.ogg'}",
+			  "CALL: 'Switch03'",
+			  "SWITCHES_ON: [6]"
+            ]
+        },
+        {
+            "conditions": {"switches": [6]},
+            "character_hue": "179-Switch02.png","pattern": 2,
+            "trigger": "action_button",            "direction": "up",            "frequence": 16,
+            "type": "fixed",
+            "through": false,
+            "stop_animation": false,
+            "no_animation": false,
+            "direction_fix": true,
+            "alwaysOnTop": false,
+            "speed": 4,
+            "commands": [
+              
+            ]
+        }
+    ]
+]
